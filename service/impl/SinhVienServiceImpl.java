@@ -18,7 +18,7 @@ public class SinhVienServiceImpl implements SinhVienService {
 
     @Override
     public Map<String, Integer> thongKeTheoLop() {
-        return sinhVienDAO.thongKeTheoLop();   // gọi xuống DAO
+        return sinhVienDAO.thongKeTheoLop();   
     }
 
     @Override
@@ -83,7 +83,7 @@ public class SinhVienServiceImpl implements SinhVienService {
 
     @Override
     public List<SinhVien> sortByHoTen(boolean asc) {
-        List<SinhVien> list = getAll(); // gọi lại service getAll()
+        List<SinhVien> list = getAll(); 
 
         list.sort((a, b) -> {
             String lastA = getLastName(a.getHoVaTen());
@@ -109,8 +109,6 @@ public class SinhVienServiceImpl implements SinhVienService {
     public List<SinhVien> sortByNgaySinh(boolean asc) {
         List<SinhVien> list = getAll();
         list.sort((a, b) -> {
-            // nếu Ngay_sinh đang là String dd/MM/yyyy thì có thể so sánh String,
-            // hoặc parse ra LocalDate cho chuẩn
             int cmp = a.getNgaySinh().compareTo(b.getNgaySinh());
             return asc ? cmp : -cmp;
         });
@@ -119,7 +117,7 @@ public class SinhVienServiceImpl implements SinhVienService {
 
     @Override
     public List<Diem> sortDiemByTongKet(String mssv, boolean asc) {
-        List<Diem> list = getDiemByMssv(mssv); // dùng hàm service đã có
+        List<Diem> list = getDiemByMssv(mssv); 
         list.sort((a, b) -> {
             int cmp = Float.compare(a.getTongKet(), b.getTongKet());
             return asc ? cmp : -cmp;
