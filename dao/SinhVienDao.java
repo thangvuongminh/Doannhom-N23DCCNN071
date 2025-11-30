@@ -41,7 +41,7 @@ public class SinhVienDao extends BaseDAO {
         try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                String maLop = rs.getString("Ma_lop");  // tên cột đúng trong bảng
+                String maLop = rs.getString("Ma_lop"); 
                 int soSv = rs.getInt("SoSV");
                 map.put(maLop, soSv);
             }
@@ -101,7 +101,7 @@ public class SinhVienDao extends BaseDAO {
         try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                list.add(mapSV(rs)); // chỉ gán vào field gốc của SinhVien
+                list.add(mapSV(rs)); 
             }
 
         } catch (Exception e) {
@@ -212,12 +212,10 @@ public class SinhVienDao extends BaseDAO {
     }
 
     public SinhVien findFullByMssv(String mssv) {
-        // Nếu sau này muốn full thật thì tạo DTO riêng, giờ cho compile chạy trước
         return findWithClassKhoa(mssv);
     }
 
     public List<SinhVien> searchFullByNganh(String keyword) {
-        // Tạm thời giống searchByNganh
         return searchByNganh(keyword);
     }
 
