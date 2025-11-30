@@ -328,7 +328,7 @@ public class QuanLySinhVienFrame extends JFrame {
         
         if (!chuoiDiem.isEmpty()) {
             String[] cacDiem = chuoiDiem.split(",");
-            String[] maMonMacDinh = {"JAVA1", "CSDL", "TA1"}; 
+            String[] maMonMacDinh = {"CTDL", "CSDL", "LTC", "KTVM", "SUC"}; 
             
             SinhVienDao dao = new SinhVienDao(); 
             
