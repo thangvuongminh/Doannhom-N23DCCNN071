@@ -7,9 +7,6 @@ import model.SinhVien;
 
 public class SinhVienDao extends BaseDAO {
 
-    // =========================================
-    // MAP SINH VIÊN cơ bản
-    // =========================================
     private SinhVien mapSV(ResultSet rs) throws Exception {
         SinhVien sv = new SinhVien();
         sv.setMsv(rs.getString("MSV"));
@@ -21,9 +18,6 @@ public class SinhVienDao extends BaseDAO {
         return sv;
     }
 
-    // =========================================
-    // 1. GET ALL SINH VIÊN
-    // =========================================
     public List<SinhVien> getAll() {
         List<SinhVien> list = new ArrayList<>();
         String sql = "SELECT * FROM SinhVien";
@@ -42,7 +36,6 @@ public class SinhVienDao extends BaseDAO {
     public Map<String, Integer> thongKeTheoLop() {
         Map<String, Integer> map = new LinkedHashMap<>();
 
-        // cột trong DB là Ma_lop (giống các chỗ khác mày dùng)
         String sql = "SELECT Ma_lop, COUNT(*) AS SoSV FROM SinhVien GROUP BY Ma_lop";
 
         try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
@@ -60,9 +53,6 @@ public class SinhVienDao extends BaseDAO {
         return map;
     }
 
-    // =========================================
-    // 2. TÌM THEO MSSV
-    // =========================================
     public SinhVien findByMssv(String mssv) {
         String sql = "SELECT * FROM SinhVien WHERE MSV = ?";
         try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
@@ -78,10 +68,7 @@ public class SinhVienDao extends BaseDAO {
         }
         return null;
     }
-
-    // =========================================
-    // 3. SEARCH THEO TÊN
-    // =========================================
+    
     public List<SinhVien> searchByName(String keyword) {
         List<SinhVien> list = new ArrayList<>();
         String sql = "SELECT * FROM SinhVien WHERE Ho_va_ten LIKE ?";
@@ -101,9 +88,6 @@ public class SinhVienDao extends BaseDAO {
         return list;
     }
 
-    // =========================================
-    // 4. GET ALL WITH LỚP + KHOA (nhưng vẫn map vào SinhVien cơ bản)
-    // =========================================
     public List<SinhVien> getAllWithClassKhoa() {
         List<SinhVien> list = new ArrayList<>();
 
@@ -127,9 +111,6 @@ public class SinhVienDao extends BaseDAO {
         return list;
     }
 
-    // =========================================
-    // 5. FIND WITH CLASS + KHOA (nhưng chỉ trả SinhVien cơ bản)
-    // =========================================
     public SinhVien findWithClassKhoa(String mssv) {
         String sql = """
             SELECT sv.*
@@ -178,9 +159,6 @@ public class SinhVienDao extends BaseDAO {
         return map;
     }
 
-    // =========================================
-    // 6. SEARCH BY NGÀNH (KHOA) – vẫn trả SinhVien
-    // =========================================
     public List<SinhVien> searchByNganh(String keyword) {
         List<SinhVien> list = new ArrayList<>();
 
@@ -208,9 +186,6 @@ public class SinhVienDao extends BaseDAO {
         return list;
     }
 
-    // =========================================
-    // 7. LẤY DANH SÁCH ĐIỂM THEO MSSV (Dùng model Diem đơn giản)
-    // =========================================
     public List<Diem> getDiemByMssv(String mssv) {
         List<Diem> list = new ArrayList<>();
 
@@ -236,9 +211,6 @@ public class SinhVienDao extends BaseDAO {
         return list;
     }
 
-    // =========================================
-    // 8. FULL PROFILE (hiện tại chỉ trả SinhVien cơ bản)
-    // =========================================
     public SinhVien findFullByMssv(String mssv) {
         // Nếu sau này muốn full thật thì tạo DTO riêng, giờ cho compile chạy trước
         return findWithClassKhoa(mssv);
@@ -249,9 +221,6 @@ public class SinhVienDao extends BaseDAO {
         return searchByNganh(keyword);
     }
 
-    // =========================================
-    // 9. THỐNG KÊ GIỚI TÍNH
-    // =========================================
     public Map<String, Integer> thongKeTheoGioiTinh() {
         Map<String, Integer> map = new HashMap<>();
 
@@ -271,9 +240,6 @@ public class SinhVienDao extends BaseDAO {
         return map;
     }
 
-    // =========================================
-    // CRUD
-    // =========================================
     public boolean insert(SinhVien sv) {
         String sql = """
             INSERT INTO SinhVien(MSV, Ho_va_ten, Ngay_sinh, Gioi_tinh, Dia_chi, Ma_lop)
