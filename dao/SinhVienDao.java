@@ -311,4 +311,18 @@ public class SinhVienDao extends BaseDAO {
 
     return false;
 }
+    public boolean insertDiem(String mssv, String maMon, float diemSo) {
+    String sql = "INSERT INTO Diem(MSV, Ma_mon, Tong_ket) VALUES (?, ?, ?)";
+    
+    try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, mssv);
+        ps.setString(2, maMon);
+        ps.setFloat(3, diemSo);
+        
+        return ps.executeUpdate() > 0;
+    } catch (Exception e) {
+        System.out.println("Lỗi thêm điểm: " + e.getMessage());
+    }
+    return false;
+}
 }
