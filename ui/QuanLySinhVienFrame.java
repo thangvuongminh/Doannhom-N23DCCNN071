@@ -1,4 +1,4 @@
-package ui; // đổi lại cho đúng package của mày
+package ui;
 
 import model.SinhVien;
 import model.Diem;
@@ -16,19 +16,18 @@ public class QuanLySinhVienFrame extends JFrame {
 
     private SinhVienService sinhVienService = new SinhVienServiceImpl();
 
-    // ====== Components ======
+   
     private JTextField txtMssv;
     private JTextField txtHoTen;
     private JTextField txtNgaySinh;
     private JRadioButton rdoNam;
     private JRadioButton rdoNu;
-    private JTextField txtNganhHoc; // tạm dùng MaLop
-    private JTextField txtDiem;     // nếu cần nhập/tìm theo điểm
+    private JTextField txtNganhHoc;
+    private JTextField txtDiem;     
 
     private JTable tblSinhVien;
     private DefaultTableModel tblModel;
 
-    // Bảng hiển thị MÔN HỌC + ĐIỂM của sinh viên đang chọn
     private JTable tblDiem;
     private DefaultTableModel tblDiemModel;
 
@@ -37,17 +36,15 @@ public class QuanLySinhVienFrame extends JFrame {
     public QuanLySinhVienFrame() {
         initUI();
         initTables();
-        loadAll(); // load dữ liệu ban đầu
+        loadAll();
     }
 
-    // ================= INIT UI =================
     private void initUI() {
         setTitle("CHƯƠNG TRÌNH QUẢN LÝ SINH VIÊN");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1100, 650);
         setLocationRelativeTo(null);
 
-        // Panel thông tin
         JPanel pnlInfo = new JPanel();
         pnlInfo.setBorder(BorderFactory.createTitledBorder("Thông Tin Sinh Viên"));
         pnlInfo.setLayout(new GridBagLayout());
@@ -74,7 +71,6 @@ public class QuanLySinhVienFrame extends JFrame {
         bgGioiTinh.add(rdoNam);
         bgGioiTinh.add(rdoNu);
 
-        // row 0
         gbc.gridx = 0;
         gbc.gridy = 0;
         pnlInfo.add(lblMssv, gbc);
@@ -84,7 +80,6 @@ public class QuanLySinhVienFrame extends JFrame {
         pnlInfo.add(txtMssv, gbc);
         gbc.gridwidth = 1;
 
-        // row 1
         gbc.gridx = 0;
         gbc.gridy = 1;
         pnlInfo.add(lblHoTen, gbc);
@@ -94,7 +89,6 @@ public class QuanLySinhVienFrame extends JFrame {
         pnlInfo.add(txtHoTen, gbc);
         gbc.gridwidth = 1;
 
-        // row 2
         gbc.gridx = 0;
         gbc.gridy = 2;
         pnlInfo.add(lblNgaySinh, gbc);
@@ -104,7 +98,6 @@ public class QuanLySinhVienFrame extends JFrame {
         pnlInfo.add(txtNgaySinh, gbc);
         gbc.gridwidth = 1;
 
-        // row 3
         gbc.gridx = 0;
         gbc.gridy = 3;
         pnlInfo.add(lblGioiTinh, gbc);
@@ -117,7 +110,6 @@ public class QuanLySinhVienFrame extends JFrame {
         pnlInfo.add(pnlGT, gbc);
         gbc.gridwidth = 1;
 
-        // row 4
         gbc.gridx = 0;
         gbc.gridy = 4;
         pnlInfo.add(lblNganhHoc, gbc);
@@ -127,7 +119,6 @@ public class QuanLySinhVienFrame extends JFrame {
         pnlInfo.add(txtNganhHoc, gbc);
         gbc.gridwidth = 1;
 
-        // row 5
         gbc.gridx = 0;
         gbc.gridy = 5;
         pnlInfo.add(lblDiem, gbc);
@@ -137,25 +128,21 @@ public class QuanLySinhVienFrame extends JFrame {
         pnlInfo.add(txtDiem, gbc);
         gbc.gridwidth = 1;
 
-        // ===== Table SinhVien =====
         tblModel = new DefaultTableModel();
         tblSinhVien = new JTable(tblModel);
         JScrollPane scrollTable = new JScrollPane(tblSinhVien);
         scrollTable.setBorder(BorderFactory.createTitledBorder("Danh Sách Sinh Viên"));
 
-        // ===== Bảng Điểm & Môn học của SV đang chọn =====
         tblDiemModel = new DefaultTableModel();
         tblDiem = new JTable(tblDiemModel);
         JScrollPane scrollDiem = new JScrollPane(tblDiem);
         scrollDiem.setBorder(BorderFactory.createTitledBorder("Môn Học & Điểm Của Sinh Viên Đang Chọn"));
 
-        // ===== TextArea Báo Cáo =====
         txtBaoCao = new JTextArea();
         txtBaoCao.setEditable(false);
         JScrollPane scrollBaoCao = new JScrollPane(txtBaoCao);
         scrollBaoCao.setBorder(BorderFactory.createTitledBorder("Báo Cáo Thống Kê"));
 
-        // Panel bên phải: trên là Báo cáo, dưới là Bảng điểm
         JSplitPane rightSplit = new JSplitPane(
                 JSplitPane.VERTICAL_SPLIT,
                 scrollBaoCao,
@@ -163,7 +150,6 @@ public class QuanLySinhVienFrame extends JFrame {
         );
         rightSplit.setResizeWeight(0.5);
 
-        // Center: trái là bảng sinh viên, phải là báo cáo + điểm
         JSplitPane splitCenter = new JSplitPane(
                 JSplitPane.HORIZONTAL_SPLIT,
                 scrollTable,
@@ -171,7 +157,6 @@ public class QuanLySinhVienFrame extends JFrame {
         );
         splitCenter.setResizeWeight(0.55);
 
-        // ===== Panel nút điều khiển =====
         JPanel pnlButtons = new JPanel(new GridLayout(2, 6, 5, 5));
         pnlButtons.setBorder(BorderFactory.createTitledBorder("Bảng Điều Khiển"));
 
@@ -192,7 +177,6 @@ public class QuanLySinhVienFrame extends JFrame {
         JButton btnTkGioiTinh = new JButton("TK Giới Tính");
         JButton btnTopSv = new JButton("Top SV");
 
-        // dòng 1
         pnlButtons.add(btnThemMoi);
         pnlButtons.add(btnCapNhat);
         pnlButtons.add(btnXoa);
@@ -200,7 +184,6 @@ public class QuanLySinhVienFrame extends JFrame {
         pnlButtons.add(btnTimMssv);
         pnlButtons.add(btnTimTen);
 
-        // dòng 2
         pnlButtons.add(btnTimNganh);
         pnlButtons.add(btnSapXepTen);
         pnlButtons.add(btnSapXepNgaySinh);
@@ -215,13 +198,11 @@ public class QuanLySinhVienFrame extends JFrame {
         pnlTopSV.add(btnTopSv);
         pnlBottom.add(pnlTopSV, BorderLayout.SOUTH);
 
-        // ===== Layout frame =====
         setLayout(new BorderLayout(5, 5));
         add(pnlInfo, BorderLayout.NORTH);
         add(splitCenter, BorderLayout.CENTER);
         add(pnlBottom, BorderLayout.SOUTH);
 
-        // ===== Sự kiện =====
         tblSinhVien.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -229,7 +210,7 @@ public class QuanLySinhVienFrame extends JFrame {
                 if (row >= 0) {
                     fillFormFromTable(row);
                     String mssv = (String) tblModel.getValueAt(row, 0);
-                    loadDiemForStudent(mssv); // load môn + điểm luôn
+                    loadDiemForStudent(mssv);
                 }
             }
         });
@@ -247,7 +228,6 @@ public class QuanLySinhVienFrame extends JFrame {
         btnSapXepTen.addActionListener(e -> onSapXepTen());
         btnSapXepNgaySinh.addActionListener(e -> onSapXepNgaySinh());
 
-        // Xem điểm + môn học cho 1 SV
         btnXemDiem.addActionListener(e -> onXemDiemTheoMon());
 
         btnTkNganh.addActionListener(e -> onThongKeNganhCu());
@@ -256,20 +236,16 @@ public class QuanLySinhVienFrame extends JFrame {
         btnTopSv.addActionListener(e -> onTopSV());
     }
 
-    // ================= INIT TABLES =================
     private void initTables() {
-        // Bảng sinh viên
         tblModel.setColumnIdentifiers(new String[]{
             "MSSV", "Họ Tên", "Ngày Sinh", "Giới Tính", "Mã Lớp"
         });
 
-        // Bảng điểm: Môn học + Điểm của SV
         tblDiemModel.setColumnIdentifiers(new String[]{
             "Mã Môn", "Điểm Tổng Kết"
         });
     }
 
-    // ================= LOAD DỮ LIỆU =================
     private void loadAll() {
         List<SinhVien> list = sinhVienService.getAll();
         loadTable(list);
@@ -305,7 +281,7 @@ public class QuanLySinhVienFrame extends JFrame {
         } else {
             rdoNu.setSelected(true);
         }
-        txtNganhHoc.setText(sv.getMaLop()); // tạm dùng MaLop hiển thị ở ô Ngành
+        txtNganhHoc.setText(sv.getMaLop()); 
     }
 
     private SinhVien getSinhVienFromForm() {
@@ -320,7 +296,6 @@ public class QuanLySinhVienFrame extends JFrame {
             return null;
         }
 
-        // "" là chỗ địa chỉ/hoặc thuộc tính khác nếu class SinhVien của mày có
         return new SinhVien(mssv, hoTen, ngaySinh, gioiTinh, "", maLop);
     }
 
@@ -340,7 +315,6 @@ public class QuanLySinhVienFrame extends JFrame {
         tblDiemModel.setRowCount(0);
     }
 
-    // ================= HANDLERS CRUD =================
     private void onThemMoi() {
         SinhVien sv = getSinhVienFromForm();
         if (sv == null) {
@@ -395,7 +369,6 @@ public class QuanLySinhVienFrame extends JFrame {
         }
     }
 
-    // ================= TÌM KIẾM & SẮP XẾP =================
     private void onTimMssv() {
         String mssv = JOptionPane.showInputDialog(this, "Nhập MSSV:");
         if (mssv == null || mssv.isBlank()) {
@@ -424,10 +397,7 @@ public class QuanLySinhVienFrame extends JFrame {
         txtBaoCao.setText("Kết quả tìm theo tên: " + ten + " (" + list.size() + " SV)");
     }
 
-    // ====== TK THEO KHOA – TỰ ĐỘNG ======
-// ====== THỐNG KÊ THEO LỚP (CLASS) ======
     private void onThongKeLop() {
-        // gọi service mới: thongKeTheoLop()
         Map<String, Integer> map = sinhVienService.thongKeTheoLop();
 
         StringBuilder sb = new StringBuilder("Thống kê theo LỚP:\n");
@@ -455,9 +425,7 @@ public class QuanLySinhVienFrame extends JFrame {
         txtBaoCao.setText("Đã sắp xếp theo ngày sinh (tăng dần)");
     }
 
-    // ====== XEM ĐIỂM + MÔN HỌC CỦA 1 SV ======
     private void loadDiemForStudent(String mssv) {
-        // có thể sort theo tổng kết cho đẹp
         List<Diem> listDiem = sinhVienService.sortDiemByTongKet(mssv, true);
         tblDiemModel.setRowCount(0);
 
@@ -517,7 +485,6 @@ public class QuanLySinhVienFrame extends JFrame {
         txtBaoCao.setText(sb.toString());
     }
 
-    // ====== THỐNG KÊ NGÀNH CŨ (OPTIONAL) ======
     private void onThongKeNganhCu() {
         String nganh = JOptionPane.showInputDialog(this, "Nhập ngành (tên khoa) để thống kê:");
         if (nganh == null || nganh.isBlank()) {
@@ -532,7 +499,7 @@ public class QuanLySinhVienFrame extends JFrame {
     }
 
     private void onLamMoiDanhSach() {
-        loadAll();            // load lại toàn bộ danh sách sinh viên
+        loadAll();            
         txtBaoCao.setText("Đã làm mới danh sách sinh viên.");
     }
 
