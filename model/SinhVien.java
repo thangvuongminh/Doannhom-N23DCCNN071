@@ -1,16 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 public class SinhVien {
     private String msv;
     private String hoVaTen;
     private String ngaySinh;
-    private boolean gioiTinh; // true: Nam, false: Nữ
+    private boolean gioiTinh;
     private String diaChi;
-    private String maLop; // Khóa ngoại trỏ sang bảng Class
+    private String maLop; 
 
     public SinhVien() {
     }
@@ -24,7 +20,6 @@ public class SinhVien {
         this.maLop = maLop;
     }
 
-    // Getters and Setters
     public String getMsv() { return msv; }
     public void setMsv(String msv) { this.msv = msv; }
 
