@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package model;
 public class Diem {
     private String maMon; // Khóa ngoại trỏ sang MonHoc
@@ -17,7 +14,6 @@ public class Diem {
         this.tongKet = tongKet;
     }
 
-    // Getters and Setters
     public String getMaMon() { return maMon; }
     public void setMaMon(String maMon) { this.maMon = maMon; }
 
