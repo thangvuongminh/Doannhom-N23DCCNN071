@@ -1,8 +1,8 @@
 
 package model;
 public class Diem {
-    private String maMon; // Khóa ngoại trỏ sang MonHoc
-    private String msv;   // Khóa ngoại trỏ sang SinhVien
+    private String maMon; 
+    private String msv;   
     private float tongKet;
 
     public Diem() {
