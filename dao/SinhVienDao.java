@@ -289,17 +289,26 @@ public class SinhVienDao extends BaseDAO {
     }
 
     public boolean delete(String mssv) {
-        String sql = "DELETE FROM SinhVien WHERE MSV = ?";
+    String sqlDeleteDiem = "DELETE FROM Diem WHERE MSV = ?";
+    String sqlDeleteSinhVien = "DELETE FROM SinhVien WHERE MSV = ?";
 
-        try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+    try (Connection con = getConnection()) {
 
-            ps.setString(1, mssv);
-            return ps.executeUpdate() > 0;
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        try (PreparedStatement ps1 = con.prepareStatement(sqlDeleteDiem)) {
+            ps1.setString(1, mssv);
+            ps1.executeUpdate();
         }
 
-        return false;
+        try (PreparedStatement ps2 = con.prepareStatement(sqlDeleteSinhVien)) {
+            ps2.setString(1, mssv);
+            return ps2.executeUpdate() > 0;
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+
+    return false;
+}
 }
