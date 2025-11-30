@@ -9,10 +9,10 @@ import java.sql.ResultSet;
 class BaseDAO {
 
     private static String hostName = "localhost";
-    private static String port = "3306"; // MySQL mặc định là 3306
-    private static String database = "QLSV"; // Tên database của bạn
+    private static String port = "3306"; 
+    private static String database = "QLSV"; 
     private static String username = "root";
-    private static String password = "123456"; // <-- ĐIỀN PASS CỦA BẠN VÀO ĐÂY
+    private static String password = "123456";
 
     public Connection getConnection() {
         Connection conn = null;
