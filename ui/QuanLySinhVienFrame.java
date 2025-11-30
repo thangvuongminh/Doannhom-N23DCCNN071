@@ -173,7 +173,6 @@ public class QuanLySinhVienFrame extends JFrame {
         JButton btnSapXepNgaySinh = new JButton("Sắp Xếp Ngày Sinh");
         JButton btnXemDiem = new JButton("Xem Điểm (1 SV)");
 
-        JButton btnTkNganh = new JButton("TK Ngành (cũ)");
         JButton btnTkGioiTinh = new JButton("TK Giới Tính");
         JButton btnTopSv = new JButton("Top SV");
 
@@ -188,7 +187,6 @@ public class QuanLySinhVienFrame extends JFrame {
         pnlButtons.add(btnSapXepTen);
         pnlButtons.add(btnSapXepNgaySinh);
         pnlButtons.add(btnXemDiem);
-        pnlButtons.add(btnTkNganh);
         pnlButtons.add(btnTkGioiTinh);
         pnlButtons.add(btnLamMoiDS);
 
@@ -230,7 +228,6 @@ public class QuanLySinhVienFrame extends JFrame {
 
         btnXemDiem.addActionListener(e -> onXemDiemTheoMon());
 
-        btnTkNganh.addActionListener(e -> onThongKeNganhCu());
         btnLamMoiDS.addActionListener(e -> onLamMoiDanhSach());
         btnTkGioiTinh.addActionListener(e -> onThongKeGioiTinh());
         btnTopSv.addActionListener(e -> onTopSV());
@@ -403,9 +400,9 @@ public class QuanLySinhVienFrame extends JFrame {
         StringBuilder sb = new StringBuilder("Thống kê theo LỚP:\n");
         for (Map.Entry<String, Integer> e : map.entrySet()) {
             sb.append("- Lớp: ")
-                    .append(e.getKey()) // tên lớp / mã lớp
+                    .append(e.getKey()) 
                     .append(" -> ")
-                    .append(e.getValue()) // số SV
+                    .append(e.getValue()) 
                     .append(" sinh viên\n");
         }
         txtBaoCao.setText(sb.toString());
@@ -483,19 +480,6 @@ public class QuanLySinhVienFrame extends JFrame {
         double avg = sum / listDiem.size();
         sb.append("Điểm trung bình: ").append(String.format("%.2f", avg));
         txtBaoCao.setText(sb.toString());
-    }
-
-    private void onThongKeNganhCu() {
-        String nganh = JOptionPane.showInputDialog(this, "Nhập ngành (tên khoa) để thống kê:");
-        if (nganh == null || nganh.isBlank()) {
-            return;
-        }
-
-        List<SinhVien> list = sinhVienService.searchFullByNganh(nganh.trim());
-        loadTable(list);
-        clearDiemTable();
-
-        txtBaoCao.setText("Thống kê ngành '" + nganh + "':\nSố sinh viên: " + list.size());
     }
 
     private void onLamMoiDanhSach() {
