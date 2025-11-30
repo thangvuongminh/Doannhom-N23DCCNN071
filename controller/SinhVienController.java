@@ -11,7 +11,7 @@ public class SinhVienController {
 
     private SinhVienService sinhVienService = new SinhVienServiceImpl();
 
-    // ===================== LẤY DỮ LIỆU CƠ BẢN =====================
+    
 
     public List<SinhVien> getAllSinhVien() {
         return sinhVienService.getAll();
@@ -25,7 +25,7 @@ public class SinhVienController {
         return sinhVienService.searchByName(keyword);
     }
 
-    // ===================== LỚP + KHOA =====================
+    
 
     public List<SinhVien> getAllWithClassKhoa() {
         return sinhVienService.getAllWithClassKhoa();
@@ -39,7 +39,6 @@ public class SinhVienController {
         return sinhVienService.searchByNganh(keyword);
     }
 
-    // ===================== ĐIỂM =====================
 
     public List<Diem> getDiemByMssv(String mssv) {
         return sinhVienService.getDiemByMssv(mssv);
@@ -49,7 +48,7 @@ public class SinhVienController {
         return sinhVienService.sortDiemByTongKet(mssv, asc);
     }
 
-    // ===================== FULL PROFILE (tùy mày dùng) =====================
+  
 
     public SinhVien getFullByMssv(String mssv) {
         return sinhVienService.findFullByMssv(mssv);
@@ -59,13 +58,13 @@ public class SinhVienController {
         return sinhVienService.searchFullByNganh(keyword);
     }
 
-    // ===================== THỐNG KÊ =====================
+   
 
     public Map<String, Integer> thongKeTheoGioiTinh() {
         return sinhVienService.thongKeTheoGioiTinh();
     }
 
-    // ===================== CRUD =====================
+
 
     public boolean addSinhVien(SinhVien sv) {
         return sinhVienService.insert(sv);
@@ -79,7 +78,7 @@ public class SinhVienController {
         return sinhVienService.delete(mssv);
     }
 
-    // ===================== SORT =====================
+  
 
     public List<SinhVien> sortSinhVienByHoTen(boolean asc) {
         return sinhVienService.sortByHoTen(asc);
