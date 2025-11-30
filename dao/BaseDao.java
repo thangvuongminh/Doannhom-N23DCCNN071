@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package dao;
 import java.sql.Connection;
 
@@ -11,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 class BaseDAO {
 
-    // Cấu hình MySQL
     private static String hostName = "localhost";
     private static String port = "3306"; // MySQL mặc định là 3306
     private static String database = "QLSV"; // Tên database của bạn
@@ -21,10 +17,8 @@ class BaseDAO {
     public Connection getConnection() {
         Connection conn = null;
         try {
-            // Nạp Driver MySQL (Khác với jtds của SQL Server)
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Chuỗi kết nối MySQL
             String connectionURL = "jdbc:mysql://" + hostName + ":" + port + "/" + database + "?useSSL=false&allowPublicKeyRetrieval=true";
 
             conn = DriverManager.getConnection(connectionURL, username, password);
