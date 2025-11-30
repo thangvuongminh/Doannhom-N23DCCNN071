@@ -4,6 +4,7 @@ import model.SinhVien;
 import model.Diem;
 import service.SinhVienService;
 import service.impl.SinhVienServiceImpl;
+import dao.SinhVienDao;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -313,18 +314,44 @@ public class QuanLySinhVienFrame extends JFrame {
     }
 
     private void onThemMoi() {
-        SinhVien sv = getSinhVienFromForm();
-        if (sv == null) {
-            return;
-        }
 
-        if (sinhVienService.insert(sv)) {
-            JOptionPane.showMessageDialog(this, "Thêm sinh viên thành công");
-            loadAll();
-        } else {
-            JOptionPane.showMessageDialog(this, "Thêm thất bại");
-        }
+    SinhVien sv = getSinhVienFromForm(); 
+    if (sv == null) {
+        return;
     }
+
+
+    String chuoiDiem = txtDiem.getText().trim();
+
+
+    if (sinhVienService.insert(sv)) {
+        
+        if (!chuoiDiem.isEmpty()) {
+            String[] cacDiem = chuoiDiem.split(",");
+            String[] maMonMacDinh = {"JAVA1", "CSDL", "TA1"}; 
+            
+            SinhVienDao dao = new SinhVienDao(); 
+            
+            for (int i = 0; i < cacDiem.length; i++) {
+                if (i < maMonMacDinh.length) {
+                    try {
+                        float d = Float.parseFloat(cacDiem[i].trim());
+                        dao.insertDiem(sv.getMsv(), maMonMacDinh[i], d);
+                    } catch (NumberFormatException ex) {
+                        System.out.println("Lỗi định dạng điểm: " + cacDiem[i]);
+                    }
+                }
+            }
+        }
+    
+
+        JOptionPane.showMessageDialog(this, "Thêm sinh viên và điểm thành công");
+        loadAll(); 
+        clearForm();
+    } else {
+        JOptionPane.showMessageDialog(this, "Thêm thất bại (Có thể trùng MSSV)");
+    }
+}
 
     private void onCapNhat() {
         int row = tblSinhVien.getSelectedRow();
