@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 public class Lop {
     private String maLop;
     private String tenLop;
     private String heDaoTao;
-    private String maKhoa; // Khóa ngoại trỏ sang bảng Khoa
+    private String maKhoa; 
 
     public Lop() {
     }
@@ -20,7 +16,7 @@ public class Lop {
         this.maKhoa = maKhoa;
     }
 
-    // Getters and Setters
+   
     public String getMaLop() { return maLop; }
     public void setMaLop(String maLop) { this.maLop = maLop; }
 
