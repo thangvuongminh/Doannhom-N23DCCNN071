@@ -6,7 +6,7 @@ import model.Diem;
 import model.SinhVien;
 
 public interface SinhVienService {
-    // ============ 1. CƠ BẢN ============
+   
 
     List<SinhVien> getAll();
 
@@ -16,14 +16,14 @@ public interface SinhVienService {
 
     List<SinhVien> searchByName(String keyword);
 
-    // ============ 2. LỚP + KHOA (KHÔNG ĐIỂM) ============
+   
     List<SinhVien> getAllWithClassKhoa();
 
     SinhVien findWithClassKhoa(String mssv);
 
     List<SinhVien> searchByNganh(String keyword);
 
-    // ============ 3. ĐIỂM / FULL PROFILE ============
+ 
     List<Diem> getDiemByMssv(String mssv);
 
     SinhVien findFullByMssv(String mssv);
@@ -38,8 +38,8 @@ public interface SinhVienService {
 
     boolean delete(String mssv);
 
-    // ============ 4. SẮP XẾP (NEW) ============
-    List<SinhVien> sortByHoTen(boolean asc);      // asc = true: tăng dần, false: giảm dần
+
+    List<SinhVien> sortByHoTen(boolean asc);      
 
     List<SinhVien> sortByNgaySinh(boolean asc);
 
