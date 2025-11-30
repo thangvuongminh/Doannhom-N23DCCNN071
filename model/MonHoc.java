@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package model;
 public class MonHoc {
     private String maMon;
@@ -17,7 +14,7 @@ public class MonHoc {
         this.soTinChi = soTinChi;
     }
 
-    // Getters and Setters
+   
     public String getMaMon() { return maMon; }
     public void setMaMon(String maMon) { this.maMon = maMon; }
 
