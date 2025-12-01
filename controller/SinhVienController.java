@@ -25,7 +25,9 @@ public class SinhVienController {
         return sinhVienService.searchByName(keyword);
     }
 
-    
+    public Map<String, Integer> thongKeTheoLop() {
+        return sinhVienService.thongKeTheoLop();   
+    }
 
     public List<SinhVien> getAllWithClassKhoa() {
         return sinhVienService.getAllWithClassKhoa();
