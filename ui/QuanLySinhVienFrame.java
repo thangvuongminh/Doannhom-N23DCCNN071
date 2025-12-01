@@ -1,5 +1,6 @@
 package ui;
 
+import controller.SinhVienController;
 import model.SinhVien;
 import model.Diem;
 import service.SinhVienService;
@@ -15,7 +16,7 @@ import java.util.Map;
 
 public class QuanLySinhVienFrame extends JFrame {
 
-    private SinhVienService sinhVienService = new SinhVienServiceImpl();
+    private SinhVienController sinhVienController = new SinhVienController();
 
    
     private JTextField txtMssv;
@@ -245,7 +246,7 @@ public class QuanLySinhVienFrame extends JFrame {
     }
 
     private void loadAll() {
-        List<SinhVien> list = sinhVienService.getAll();
+        List<SinhVien> list = sinhVienController.getAllSinhVien();
         loadTable(list);
         clearDiemTable();
         txtBaoCao.setText("Đã load " + list.size() + " sinh viên.");
@@ -266,7 +267,7 @@ public class QuanLySinhVienFrame extends JFrame {
 
     private void fillFormFromTable(int row) {
         String mssv = (String) tblModel.getValueAt(row, 0);
-        SinhVien sv = sinhVienService.findByMssv(mssv);
+        SinhVien sv = sinhVienController.getSinhVienByMssv(mssv);
         if (sv == null) {
             return;
         }
@@ -324,7 +325,7 @@ public class QuanLySinhVienFrame extends JFrame {
     String chuoiDiem = txtDiem.getText().trim();
 
 
-    if (sinhVienService.insert(sv)) {
+    if (sinhVienController.addSinhVien(sv)) {
         
         if (!chuoiDiem.isEmpty()) {
             String[] cacDiem = chuoiDiem.split(",");
@@ -365,7 +366,7 @@ public class QuanLySinhVienFrame extends JFrame {
             return;
         }
 
-        if (sinhVienService.update(mssvCu, svMoi)) {
+        if (sinhVienController.updateSinhVien(mssvCu, svMoi)) {
             JOptionPane.showMessageDialog(this, "Cập nhật thành công");
             loadAll();
         } else {
@@ -384,7 +385,7 @@ public class QuanLySinhVienFrame extends JFrame {
                 "Xóa sinh viên " + mssv + " ?", "Xác nhận",
                 JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
-            if (sinhVienService.delete(mssv)) {
+                if (sinhVienController.deleteSinhVien(mssv)) {
                 JOptionPane.showMessageDialog(this, "Xóa thành công");
                 loadAll();
             } else {
@@ -399,7 +400,7 @@ public class QuanLySinhVienFrame extends JFrame {
             return;
         }
 
-        SinhVien sv = sinhVienService.findByMssv(mssv.trim());
+        SinhVien sv = sinhVienController.getSinhVienByMssv(mssv.trim());
         if (sv == null) {
             JOptionPane.showMessageDialog(this, "Không tìm thấy MSSV");
             return;
@@ -415,14 +416,14 @@ public class QuanLySinhVienFrame extends JFrame {
             return;
         }
 
-        List<SinhVien> list = sinhVienService.searchByName(ten.trim());
+        List<SinhVien> list = sinhVienController.searchSinhVienByName(ten.trim());
         loadTable(list);
         clearDiemTable();
         txtBaoCao.setText("Kết quả tìm theo tên: " + ten + " (" + list.size() + " SV)");
     }
 
     private void onThongKeLop() {
-        Map<String, Integer> map = sinhVienService.thongKeTheoLop();
+        Map<String, Integer> map = sinhVienController.thongKeTheoLop();
 
         StringBuilder sb = new StringBuilder("Thống kê theo LỚP:\n");
         for (Map.Entry<String, Integer> e : map.entrySet()) {
@@ -436,21 +437,21 @@ public class QuanLySinhVienFrame extends JFrame {
     }
 
     private void onSapXepTen() {
-        List<SinhVien> list = sinhVienService.sortByHoTen(true);
+        List<SinhVien> list = sinhVienController.sortSinhVienByHoTen(true);
         loadTable(list);
         clearDiemTable();
         txtBaoCao.setText("Đã sắp xếp theo họ tên (A → Z)");
     }
 
     private void onSapXepNgaySinh() {
-        List<SinhVien> list = sinhVienService.sortByNgaySinh(true);
+        List<SinhVien> list = sinhVienController.sortSinhVienByNgaySinh(true);
         loadTable(list);
         clearDiemTable();
         txtBaoCao.setText("Đã sắp xếp theo ngày sinh (tăng dần)");
     }
 
     private void loadDiemForStudent(String mssv) {
-        List<Diem> listDiem = sinhVienService.sortDiemByTongKet(mssv, true);
+        List<Diem> listDiem = sinhVienController.sortDiemByTongKet(mssv, true);
         tblDiemModel.setRowCount(0);
 
         if (listDiem == null || listDiem.isEmpty()) {
@@ -484,7 +485,7 @@ public class QuanLySinhVienFrame extends JFrame {
         String mssv = (String) tblModel.getValueAt(row, 0);
         String hoTen = (String) tblModel.getValueAt(row, 1);
 
-        List<Diem> listDiem = sinhVienService.sortDiemByTongKet(mssv, true);
+        List<Diem> listDiem = sinhVienController.sortDiemByTongKet(mssv, true);
         tblDiemModel.setRowCount(0);
 
         if (listDiem.isEmpty()) {
@@ -515,7 +516,7 @@ public class QuanLySinhVienFrame extends JFrame {
     }
 
     private void onThongKeGioiTinh() {
-        Map<String, Integer> map = sinhVienService.thongKeTheoGioiTinh();
+        Map<String, Integer> map = sinhVienController.thongKeTheoGioiTinh();
         StringBuilder sb = new StringBuilder("Thống kê giới tính:\n");
         for (Map.Entry<String, Integer> e : map.entrySet()) {
             sb.append(e.getKey()).append(": ").append(e.getValue()).append("\n");
@@ -524,12 +525,12 @@ public class QuanLySinhVienFrame extends JFrame {
     }
 
     private void onTopSV() {
-        List<SinhVien> all = sinhVienService.getAll();
+        List<SinhVien> all = sinhVienController.getAllSinhVien();
         double bestAvg = -1;
         SinhVien bestSv = null;
 
         for (SinhVien sv : all) {
-            List<Diem> listDiem = sinhVienService.getDiemByMssv(sv.getMsv());
+            List<Diem> listDiem = sinhVienController.getDiemByMssv(sv.getMsv());
             if (listDiem.isEmpty()) {
                 continue;
             }
