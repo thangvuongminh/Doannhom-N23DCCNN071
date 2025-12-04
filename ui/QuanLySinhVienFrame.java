@@ -159,7 +159,7 @@ public class QuanLySinhVienFrame extends JFrame {
         );
         splitCenter.setResizeWeight(0.55);
 
-        JPanel pnlButtons = new JPanel(new GridLayout(2, 6, 5, 5));
+        JPanel pnlButtons = new JPanel(new GridLayout(3, 6, 5, 5));
         pnlButtons.setBorder(BorderFactory.createTitledBorder("Bảng Điều Khiển"));
 
         JButton btnThemMoi = new JButton("Thêm Mới");
@@ -190,13 +190,11 @@ public class QuanLySinhVienFrame extends JFrame {
         pnlButtons.add(btnSapXepNgaySinh);
         pnlButtons.add(btnXemDiem);
         pnlButtons.add(btnTkGioiTinh);
+        pnlButtons.add(btnTopSv);
         pnlButtons.add(btnLamMoiDS);
 
         JPanel pnlBottom = new JPanel(new BorderLayout(5, 5));
         pnlBottom.add(pnlButtons, BorderLayout.CENTER);
-        JPanel pnlTopSV = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        pnlTopSV.add(btnTopSv);
-        pnlBottom.add(pnlTopSV, BorderLayout.SOUTH);
 
         setLayout(new BorderLayout(5, 5));
         add(pnlInfo, BorderLayout.NORTH);
